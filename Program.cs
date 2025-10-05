@@ -39,8 +39,8 @@ public class Program
 
     private static string GetOsuPath()
     {
-        var key = Registry.ClassesRoot.OpenSubKey("osu\\DefaultIcon");
-        key ??= Registry.ClassesRoot.OpenSubKey("osu!\\DefaultIcon");
+        var key = Registry.ClassesRoot.OpenSubKey("osustable.Uri.osu\\shell\\open\\command");
+        key ??= Registry.ClassesRoot.OpenSubKey("osu\\shell\\open\\command");
 
         if (key == null)
         {
@@ -48,7 +48,7 @@ public class Program
             return null;
         }
 
-        return key.GetValue("").ToString().Split(',')[0].Replace("\"", "");
+        return key.GetValue("").ToString().Replace("\"%1\"", "").Replace("\"", "").Trim();
     }
 
     private static bool IsAdmin()
